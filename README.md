@@ -1,11 +1,15 @@
 # gulp_example
-> init project
+> gulp构建工具的一个示例小项目，目前包含的任务是http服务器和sass编译及添加-moz等。
 
 #### install
-> npm install
+``` bash
+npm install
+```
 
 #### run
-> gulp or gulp serve
+``` bash
+gulp or gulp serve
+```
 
 #### 参考链接
 - [gulpjs.com](http://gulpjs.com/)
