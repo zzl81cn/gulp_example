@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Web Storage Example</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<style type="text/css">
+body{
+	background-color: #373637;
+	color: white;
+	font-family: Lucida Grande;
+}
+h1, h2, h3 {
+	color: #ccc;
+}
+a, a:hover, a:visited{
+	text-decoration: none;
+	color: white;
+	font-weight: bold;
+}
+#displaysession, #displaylocal{
+	/*background-color: #ffffcc;*/
+	color: white;
+	padding: 3px;
+	border-bottom: 1px dotted white;
+}
+#session_storage_info{
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-bottom: 5px solid white;
+}
+
+#footer{
+	clear: both;
+	background-color: #c94054;
+	text-align: right;
+	color: white;
+	padding: 3px;
+
+
+}
+#footer-left{
+	float: left;
+}
+#footer a{
+	text-decoration: none;
+	color: inherit;
+	font-weight: normal;
+}
+#footer a:hover{
+	text-decoration: underline;
+}
+
+
+</style>
+<script type="text/javascript">
+	window.onload  = function(){
+		loadvalues();
+	};
+
+	function loadvalues(){
+		getthestuffSession(); //get the session storage data
+		getthestuffLocal(); //get the local storage data
+	}
+
+	function savethestuffSession(){
+		var lala = document.getElementById("first"); //get the element
+		var thevalue = lala.value; //get it's value
+		sessionStorage.setItem(1, thevalue); //store the value with a key as 1
+		getthestuffSession(); //get loaded value and display on screen
+	}
+	function getthestuffSession(){
+		var data;
+		var thediv = document.getElementById("displaysession"); //get element
+		data = sessionStorage.getItem(1); //select the value by searching for that key, in our case, 1
+		if (data){ //if we got something
+			thediv.innerHTML = "The value is "+data; //change the innerHTML to refelect the senetence which posts the value
+		}
+	}
+	//the next two functions are written the same way as the previous two
+	function savethestuffLocal(){
+		var lala = document.getElementById("second");
+		var thevalue = lala.value;
+		localStorage.setItem(1, thevalue);
+		getthestuffLocal();
+	}
+	function getthestuffLocal(){
+		var data;
+		var thediv = document.getElementById("displaylocal");
+		data = localStorage.getItem(1);
+			if (data){
+				thediv.innerHTML = "The value is "+data;
+			} else {
+				thediv.innerHTML = "The value is Empty";
+			}
+	}
+	function removestuffLocal(){
+		localStorage.removeItem(1);
+		getthestuffLocal();
+	}
+
+	function clearLocalStorage() {
+		localStorage.clear();
+		getthestuffLocal();
+	}
+
+
+</script>
+</head>
+<body>
+	<h1>Web Storage Example</h1>
+
+	<h2>Session Storage</h2>
+
+	<div id="displaysession">Seems there is nothing stored in session storage yet</div>
+
+	<input type="text" name="" value="" id="first" />
+
+	<a href="javascript:savethestuffSession();">Save it!</a>
+	<a href="">Delete it!</a>
+
+	<p id="session_storage_info">This data will be stored using Session Storage. Which means the moment you close this page, the data will be lost. </p>
+
+
+
+	<h2>Local Storage</h2>
+
+	<div id="displaylocal">Seems there is nothing stored in local storage yet</div>
+
+	<input type="text" name="" value="" id="second" />
+
+	<a href="javascript:savethestuffLocal();">Save it!</a>
+	<a href="javascript:removestuffLocal();">Delete it!</a>
+	<a href="javascript:clearLocalStorage();">Clear it!</a>
+
+	<p id="local_storage_infio">This data is stored using Local Storage. Which means that even if you close the page, and re-open it, the data you saved should be loaded again.</p>
+
+
+	<div id="footer"> <div>By <a href="http://shwetankdixit.com">Shwetank Dixit</a></div>
+	</div>
+	<!-- HTML -->
+	<!-- CSS -->
+	<!-- JAVASCRIPT: WebStorage -->
+</body>
+
+</html>

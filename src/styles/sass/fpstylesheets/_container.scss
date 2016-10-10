@@ -1,0 +1,58 @@
+/*
+* container styles
+*/
+
+// container
+.fp-container {
+  @include fp-container-fixed;
+  width: $fp-container-width;
+}
+.fp-container-fluid {
+  @include fp-container-fixed;
+}
+
+
+.tier {
+  margin: 40px auto 0;
+  width: $fp-container-width;
+  min-width: $fp-container-width;
+}
+
+.fp-col-md-1, 
+.fp-col-md-2, 
+.fp-col-md-3, 
+.fp-col-md-4, 
+.fp-col-md-5, 
+.fp-col-md-6, 
+.fp-col-md-7, 
+.fp-col-md-8, 
+.fp-col-md-9, 
+.fp-col-md-10, 
+.fp-col-md-11, 
+.fp-col-md-12 {
+	float: left;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+.fp-col-md-3 {
+	width: 16.66%;
+}
+.fp-col-md-3 {
+	width: 25%;
+}
+.fp-col-md-4 {
+	width: 33.33%;
+}
+.fp-col-md-5 {
+	width: 41.66%;
+}
+.fp-col-md-6 {
+	width: 50%;
+}
+.fp-col-md-7 {
+	width: 58.33%;
+}
+.fp-col-md-12 {
+	width: 100%;
+}

@@ -1,0 +1,110 @@
+// http://w3school.com.cn/cssref/pr_animation.asp
+// animation: none 0 ease 0 1 normal;
+// (animation: name duration timing-function delay iteration-count direction;)
+
+// animation-name: keyframename|none;
+// animation-duration: time;
+// animation-timing-function: value(linear|ease|ease-in|ease-out|ease-in-out|cubic-bezier(n,n,n,n));
+// animation-delay: time;
+// animation-iteration-count: n|infinite;
+// animation-direction: normal|alternate
+
+// .text-shadow() {
+//   text-shadow: 1px 1px 1px #000;
+// }
+
+$font-stack:    Helvetica, sans-serif;
+$primary-color: #333;
+$link-color: #ff0;
+$same-red: #cce6ff;
+
+/*Animation*/
+.animation-scale {
+  display: block;
+  .animation-item-img {
+    transition: all .3s ease;
+    &:hover {
+      transform: scale3d(0.98,.98,1);
+    }
+  }
+}
+
+
+body {
+  font: 100% 'microsoft yahei' $font-stack;
+  color: $primary-color;
+}
+a {
+  color: $link-color;
+}
+.single-link {
+  color: $link-color;
+}
+@keyframes colorTransBg{
+  0%{
+    background-color: $same-red;
+  }
+  15%{
+    background-color: lighten(#FF6699, 25%);
+  }
+  30%{
+    background-color: lighten(#FF9933, 25%);
+  }
+  45%{
+    background-color: lighten(#FFFF00, 25%);
+  }
+  60%{
+    background-color: lighten(#CCFF33, 25%);
+  }
+  85%{
+    background-color: lighten(#66FFFF, 25%);
+  }
+  100%{
+    background-color: $same-red;
+  }
+}
+@keyframes ttb{
+  0%{
+    top: 20%;
+    color: red;
+  }
+  10%{
+    color: orange;
+  }
+  25%{
+    color: #FFCC00;
+  }
+  40%{
+    top: 40%;
+    color: #00cc00;
+  }
+  60%{
+    color: #00eeee;
+  }
+  85%{
+    color: purple;
+  }
+  100%{
+    top: 20%;
+    color: red;
+  }
+}
+
+.main-body {
+  position: relative;
+  overflow: hidden;//remove scrollbar
+  animation: colorTransBg 30s linear 0s infinite normal;
+}
+.primary-head {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  text-align:center;
+  font-size: 10em;
+  color: lighten($primary-color, 20%);
+  animation: ttb 25s ease-in-out 0s infinite normal;
+  text-shadow: 3px 3px 10px rgba(60, 60, 60, .3);
+  span {
+    font-weight: normal;
+  }
+}

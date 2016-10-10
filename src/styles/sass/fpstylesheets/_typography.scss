@@ -1,0 +1,29 @@
+/*
+* container styles
+*/
+
+.fp-user-center {
+	dt {
+		width: 100px;
+	}
+	dd {
+		margin-left: 100px;
+		padding-left: 20px;
+    min-width: 300px;
+	}
+	dt,
+	dd {
+		height: 40px;
+		line-height: 40px;
+		border-bottom: 1px dashed $fp-border-color;
+	}
+}
+
+
+// type
+.fp-text-warning {
+	color: $fp-brand-warning;
+}
+.fp-text-muted {
+	color: $gray-light;
+}

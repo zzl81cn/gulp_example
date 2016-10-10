@@ -1,0 +1,108 @@
+/**
+* main styles
+*/
+/*Animation*/
+.animation-scale {
+  display: block; }
+  .animation-scale .animation-item-img {
+    -moz-transition: all .3s ease;
+    transition: all .3s ease; }
+    .animation-scale .animation-item-img:hover {
+      -moz-transform: scale3d(0.98, 0.98, 1);
+      transform: scale3d(0.98, 0.98, 1); }
+
+body {
+  font: 100% "microsoft yahei" Helvetica, sans-serif;
+  color: #333; }
+
+a {
+  color: #ff0; }
+
+.single-link {
+  color: #ff0; }
+
+@-moz-keyframes colorTransBg {
+  0% {
+    background-color: #cce6ff; }
+  15% {
+    background-color: #ffe6ee; }
+  30% {
+    background-color: #ffd9b3; }
+  45% {
+    background-color: #ffff80; }
+  60% {
+    background-color: #ecffb3; }
+  85% {
+    background-color: #e6ffff; }
+  100% {
+    background-color: #cce6ff; } }
+
+@keyframes colorTransBg {
+  0% {
+    background-color: #cce6ff; }
+  15% {
+    background-color: #ffe6ee; }
+  30% {
+    background-color: #ffd9b3; }
+  45% {
+    background-color: #ffff80; }
+  60% {
+    background-color: #ecffb3; }
+  85% {
+    background-color: #e6ffff; }
+  100% {
+    background-color: #cce6ff; } }
+@-moz-keyframes ttb {
+  0% {
+    top: 20%;
+    color: red; }
+  10% {
+    color: orange; }
+  25% {
+    color: #FFCC00; }
+  40% {
+    top: 40%;
+    color: #00cc00; }
+  60% {
+    color: #00eeee; }
+  85% {
+    color: purple; }
+  100% {
+    top: 20%;
+    color: red; } }
+@keyframes ttb {
+  0% {
+    top: 20%;
+    color: red; }
+  10% {
+    color: orange; }
+  25% {
+    color: #FFCC00; }
+  40% {
+    top: 40%;
+    color: #00cc00; }
+  60% {
+    color: #00eeee; }
+  85% {
+    color: purple; }
+  100% {
+    top: 20%;
+    color: red; } }
+.main-body {
+  position: relative;
+  overflow: hidden;
+  -moz-animation: colorTransBg 30s linear 0s infinite normal;
+  animation: colorTransBg 30s linear 0s infinite normal; }
+
+.primary-head {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+  font-size: 10em;
+  color: #666666;
+  -moz-animation: ttb 25s ease-in-out 0s infinite normal;
+  animation: ttb 25s ease-in-out 0s infinite normal;
+  text-shadow: 3px 3px 10px rgba(60, 60, 60, 0.3); }
+  .primary-head span {
+    font-weight: normal; }
