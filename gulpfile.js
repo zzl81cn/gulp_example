@@ -16,8 +16,13 @@ var gulp = require('gulp'),
 		jsmin = require('gulp-uglify'),
 		browserSync = require('browser-sync').create();
 
+// staticPath
 var src = './src',
 	dest = './dist';
+/*// proxyStaticPath
+var	staticSrc = ['./src'],
+	proxyURL = 'http://192.168.16.167:9998';*/
+
 
 // gulp.task('serve', ['lessTask','sassTask','jsminTask'], function(){
 gulp.task('serve', ['sassTask','jsminTask'], function(){
@@ -32,10 +37,17 @@ gulp.task('serve', ['sassTask','jsminTask'], function(){
 	    forms: true,
 	    scroll: false
 		},
+		// staticServerPath
 		server: "src",
 		// 文件夹列表模式
 		// directory: true,
 		port: 9001
+		// 代理配置
+		/*,proxy:{
+			// 代理域
+			target: proxyURL
+			// ,ws:true
+		}*/
 	});
 	// gulp.watch("./less/*.less", ['lessTask']);
 	gulp.watch("./src/styles/sass/*.scss", ['sassTask']);
