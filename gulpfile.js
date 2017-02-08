@@ -10,6 +10,7 @@ var gulp = require('gulp'),
 		browserSync = require('browser-sync').create(),
 		// less = require('gulp-less'),
 		// mincss = require('gulp-minify-css'),
+		del = require('del'),
 		gulpif = require('gulp-if'),
 		notify = require('gulp-notify'),
 		plumber = require('gulp-plumber'),
@@ -54,13 +55,25 @@ gulp.task('serve', ['sassTask','jsminTask'], function(){
 			forms: true,
 			scroll: false
 		},
-		// staticServerPath
+		// staticServerPath 开启代理时此属性需要禁用
 		server: "src",
+		// Disable UI completely
+		ui: false,
+		// Change the default weinre port
+		// ui: {
+		// 	port: 8080,
+		// 	weinre: {
+		// 		port: 9090
+		// 	}
+		// }
+
 		// 文件夹列表模式
 		// directory: true,
 		port: 9001
 		// 代理配置
-		/*,proxy:{
+		/*// 本地文件目录
+		serveStatic: staticSrc,
+		 ,proxy:{
 			// 代理域
 			target: proxyURL
 			// ,ws:true
@@ -134,6 +147,33 @@ gulp.task('spliceHTML', function () {
 			}
 		}))
 		.pipe(gulp.dest('./src'))
+});
+
+// Clean dist directory
+gulp.task('clean:normal', function (cb) {
+	del([
+		// 这里我们使用一个通配模式来匹配 `dist` 文件夹中的所有东西
+		'dist/**/*'
+		// 如果我们不希望删掉这个文件，所以我们取反这个匹配模式
+		//'!dist/mobile/deploy.json'
+	], cb);
+});
+
+// Copy src specifild file to dist folder.
+gulp.task('copyfile', function(){
+	return gulp.src(
+		['src/*.html', 'src/styles/*.css', 'src/fonts/**/*', 'src/img/**/*', 'src/lib/**/*', 'src/js/**/*'],
+		{base: './src'}
+	)
+		.pipe(gulp.dest('dist', {base: './'}))
+});
+
+// Start deploy
+gulp.task('deploy', ['clean:normal', 'copyfile']);
+
+// Only watch sass types files
+gulp.task('watchSass', function(){
+	gulp.watch("./src/styless/sass/**/*.scss", ['sassTask']);
 });
 
 gulp.task('default', ['serve']);
