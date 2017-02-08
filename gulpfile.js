@@ -10,9 +10,11 @@ var gulp = require('gulp'),
 		browserSync = require('browser-sync').create(),
 		// less = require('gulp-less'),
 		// mincss = require('gulp-minify-css'),
+		gulpif = require('gulp-if'),
 		notify = require('gulp-notify'),
 		plumber = require('gulp-plumber'),
 		sass = require('gulp-sass'),
+		sprity = require('sprity'),
 		// sass = require('gulp-ruby-sass'),
 		jsmin = require('gulp-uglify'),
 		fileInclude = require('gulp-file-include');
@@ -23,6 +25,20 @@ var src = './src',
 // proxyStaticPath
 var	staticSrc = ['./src'],
 	proxyURL = 'http://192.168.16.167:9998';
+
+// generate sprite.png and _sprite.scss
+gulp.task('sprites', function () {
+	return sprity.src({
+		src: './src/images/public/nav-sprite/*.{png,jpg}'
+		// style: './sprite.css',
+		// ... other optional options
+		// for example if you want to generate scss instead of css
+		// processor: 'sass', // make sure you have installed sprity-sass
+	})
+		.pipe(gulpif('*.png', gulp.dest('./src/images/public/')
+			// , gulp.dest('./src/css/')
+		))
+});
 
 
 // gulp.task('serve', ['lessTask','sassTask','jsminTask'], function(){
