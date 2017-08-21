@@ -23,7 +23,7 @@ gulp ps
 ```
 
 #### 参考链接
-1 [gulpjs.com](http://gulpjs.com/)
-2 [gulpjs.com.cn](http://gulpjs.com.cn/)
-3 [github.com/zzl81cn/react-showcase](https://github.com/zzl81cn/react-showcase/)
+1. [gulpjs.com](http://gulpjs.com/)
+2. [gulpjs.com.cn](http://gulpjs.com.cn/)
+3. [github.com/zzl81cn/react-showcase](https://github.com/zzl81cn/react-showcase/)
 
