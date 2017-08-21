@@ -17,6 +17,11 @@ gulp or gulp serve
 gulp deploy
 ```
 
+#### after build run server(only run dist)
+``` bash
+gulp ps
+```
+
 #### 参考链接
 - [gulpjs.com](http://gulpjs.com/)
 - [gulpjs.com.cn](http://gulpjs.com.cn/)
