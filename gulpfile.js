@@ -18,6 +18,7 @@ var gulp = require('gulp'),
 		sprity = require('sprity'),
 		// sass = require('gulp-ruby-sass'),
 		jsmin = require('gulp-uglify'),
+  	connect = require('gulp-connect'),
 		fileInclude = require('gulp-file-include');
 
 // staticPath
@@ -26,6 +27,15 @@ var src = './src',
 // proxyStaticPath
 var	staticSrc = ['./src'],
 	proxyURL = 'http://192.168.16.167:9998';
+
+gulp.task('ps', function () {
+  connect.server({
+    root: 'dist',
+    port: 9001
+  })
+  // when process exits:
+  // connect.serverClose();
+});
 
 // generate sprite.png and _sprite.scss
 gulp.task('sprites', function () {

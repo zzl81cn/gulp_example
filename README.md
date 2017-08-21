@@ -12,6 +12,11 @@ npm install
 gulp or gulp serve
 ```
 
+#### build
+``` bash
+gulp deploy
+```
+
 #### 参考链接
 - [gulpjs.com](http://gulpjs.com/)
 - [gulpjs.com.cn](http://gulpjs.com.cn/)
