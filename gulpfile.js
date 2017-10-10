@@ -6,6 +6,7 @@
  */
 
 var gulp = require('gulp'),
+		runSequence = require('run-sequence'),
 		autoprefixer = require('gulp-autoprefixer'),
 		browserSync = require('browser-sync').create(),
 		// less = require('gulp-less'),
@@ -179,7 +180,12 @@ gulp.task('copyfile', function(){
 });
 
 // Start deploy
-gulp.task('deploy', ['clean:normal', 'copyfile']);
+gulp.task('dist', ['clean:normal', 'copyfile']);
+/* gulp.task('dist', ['clean:normal'], function(done) {
+	runSequence(
+		['copyfile'],
+	done)
+}); */
 
 // Only watch sass types files
 gulp.task('watchSass', function(){
