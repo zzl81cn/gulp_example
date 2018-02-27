@@ -95,7 +95,7 @@ gulp.task('serve', ['sassTask','jsminTask'], function(){
 	// gulp.watch("./js/*.js", ['jsminTask']);
 	// node-sass require
 	// gulp.watch("./css/*.css", ['autoPrefixer']);
-	gulp.watch(["./src/**/*.html","./src/**/*.js"]).on('change', browserSync.reload);
+	gulp.watch(["./src/**/*.html","./src/**/*.js"], {interval: 500}).on('change', browserSync.reload);
 });
 
 // gulp-ruby-sass, Used gulp-sass replace this plugins.
