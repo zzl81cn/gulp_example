@@ -6,21 +6,24 @@
  */
 
 let gulp = require("gulp"),
-		runSequence = require("run-sequence"),
-		autoprefixer = require("gulp-autoprefixer"),
-		browserSync = require("browser-sync").create(),
-		// less = require("gulp-less"),
-		// mincss = require("gulp-minify-css"),
-		del = require("del"),
-		gulpif = require("gulp-if"),
-		notify = require("gulp-notify"),
-		plumber = require("gulp-plumber"),
-		sass = require("gulp-sass"),
-		sprity = require("sprity"),
-		// sass = require("gulp-ruby-sass"),
-		jsmin = require("gulp-uglify"),
-  	connect = require("gulp-connect"),
-		fileInclude = require("gulp-file-include");
+	runSequence = require("run-sequence"),
+	autoprefixer = require("gulp-autoprefixer"),
+	browserSync = require("browser-sync").create(),
+	// less = require("gulp-less"),
+	// mincss = require("gulp-minify-css"),
+	del = require("del"),
+	gulpif = require("gulp-if"),
+	notify = require("gulp-notify"),
+	plumber = require("gulp-plumber"),
+	sass = require("gulp-sass"),
+	sprity = require("sprity"),
+	// sass = require("gulp-ruby-sass"),
+	uglify = require("gulp-uglify"),
+	connect = require("gulp-connect"),
+	fileInclude = require("gulp-file-include"),
+	merge = require('merge-stream'),
+	rev = require("gulp-rev"),
+	revReplace = require("gulp-rev-replace");
 
 // staticPath
 var
@@ -30,7 +33,7 @@ var
 var	staticSrc = ["./src"],
 	proxyURL = "http://192.168.16.167:9998";
 
-gulp.task("ps", function () {
+gulp.task("pure-serve", function () {
   connect.server({
     root: "dist",
     port: 9001
@@ -111,6 +114,45 @@ gulp.task("serve", ["sassTask","jsminTask"], function(){
     .pipe(browserSync.stream());
 });*/
 
+// 1.compile styles add MD5 code
+gulp.task("compile", ["clean"], function () {
+	var js = gulp.src("src/public/js/libs/*.js", {base: "src/public"})
+		.pipe(uglify());
+
+	var css = gulp.src("src/public/styles/*.scss", {base: "src/public"})
+		.pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+		.pipe(sass({outputStyle: "expanded"}))
+		.pipe(autoprefixer({
+			browsers: ["last 2 versions", "Firefox <= 20"],
+			cascade: false
+		}));
+	return merge(js, css)
+		.pipe(rev())
+		.pipe(gulp.dest("dist/static"))
+		.pipe(rev.manifest())
+		.pipe(gulp.dest("dist/tmp"));
+});
+// 2.replace MD5
+gulp.task("replace", ["compile"], function () {
+	gulp.src("src/*.html")
+		.pipe(revReplace({manifest: gulp.src("dist/tmp/rev-manifest.json")}))
+		.pipe(gulp.dest("dist"));
+});
+// 3.cp static files
+gulp.task("cpFiles", function() {
+	return gulp.src([
+		"src/**",
+		"!src/public/js/**",
+		"!src/public/styles/**",
+		"!src/*.html",
+		"!src/build_page"
+	])
+		.pipe(gulp.dest("dist"))
+});
+gulp.task("testBuild", function (done) {
+	runSequence(["replace"], ["cpFiles"], done)
+})
+
 // gulp-sass
 gulp.task("sassTask", function () {
 	return gulp.src("./src/styles/sass/*.scss")
@@ -144,7 +186,7 @@ gulp.task("sassTask", function () {
 
 gulp.task("jsminTask", function(){
 	return gulp.src("./js/*.js")
-		.pipe(jsmin())
+		.pipe(uglify())
 		.pipe(gulp.dest("./js-min"));
 });
 
@@ -161,6 +203,10 @@ gulp.task("spliceHTML", function () {
 		.pipe(gulp.dest("./src"));
 });
 
+// clean types
+gulp.task("clean", function () {
+	del("dist");
+});
 // Clean dist directory
 gulp.task("clean:normal", function (cb) {
 	del([
