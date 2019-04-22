@@ -5,56 +5,57 @@
  * @version $Id$
  */
 
-var gulp = require('gulp'),
-		runSequence = require('run-sequence'),
-		autoprefixer = require('gulp-autoprefixer'),
-		browserSync = require('browser-sync').create(),
-		// less = require('gulp-less'),
-		// mincss = require('gulp-minify-css'),
-		del = require('del'),
-		gulpif = require('gulp-if'),
-		notify = require('gulp-notify'),
-		plumber = require('gulp-plumber'),
-		sass = require('gulp-sass'),
-		sprity = require('sprity'),
-		// sass = require('gulp-ruby-sass'),
-		jsmin = require('gulp-uglify'),
-  	connect = require('gulp-connect'),
-		fileInclude = require('gulp-file-include');
+let gulp = require("gulp"),
+		runSequence = require("run-sequence"),
+		autoprefixer = require("gulp-autoprefixer"),
+		browserSync = require("browser-sync").create(),
+		// less = require("gulp-less"),
+		// mincss = require("gulp-minify-css"),
+		del = require("del"),
+		gulpif = require("gulp-if"),
+		notify = require("gulp-notify"),
+		plumber = require("gulp-plumber"),
+		sass = require("gulp-sass"),
+		sprity = require("sprity"),
+		// sass = require("gulp-ruby-sass"),
+		jsmin = require("gulp-uglify"),
+  	connect = require("gulp-connect"),
+		fileInclude = require("gulp-file-include");
 
 // staticPath
-var src = './src',
-	dest = './dist';
+var
+	src = "./src",
+	dest = "./dist";
 // proxyStaticPath
-var	staticSrc = ['./src'],
-	proxyURL = 'http://192.168.16.167:9998';
+var	staticSrc = ["./src"],
+	proxyURL = "http://192.168.16.167:9998";
 
-gulp.task('ps', function () {
+gulp.task("ps", function () {
   connect.server({
-    root: 'dist',
+    root: "dist",
     port: 9001
-  })
+  });
   // when process exits:
   // connect.serverClose();
 });
 
 // generate sprite.png and _sprite.scss
-gulp.task('sprites', function () {
+gulp.task("sprites", function () {
 	return sprity.src({
-		src: './src/images/public/nav-sprite/*.{png,jpg}'
-		// style: './sprite.css',
+		src: "./src/images/public/nav-sprite/*.{png,jpg}"
+		// style: "./sprite.css",
 		// ... other optional options
 		// for example if you want to generate scss instead of css
-		// processor: 'sass', // make sure you have installed sprity-sass
+		// processor: "sass", // make sure you have installed sprity-sass
 	})
-		.pipe(gulpif('*.png', gulp.dest('./src/images/public/')
-			// , gulp.dest('./src/css/')
-		))
+		.pipe(gulpif("*.png", gulp.dest("./src/images/public/")
+			// , gulp.dest("./src/css/")
+		));
 });
 
 
-// gulp.task('serve', ['lessTask','sassTask','jsminTask'], function(){
-gulp.task('serve', ['sassTask','jsminTask'], function(){
+// gulp.task("serve", ["lessTask","sassTask","jsminTask"], function(){
+gulp.task("serve", ["sassTask","jsminTask"], function(){
 	browserSync.init({
 		// 启动server后打开默认页面
 		open: false,
@@ -90,111 +91,111 @@ gulp.task('serve', ['sassTask','jsminTask'], function(){
 			// ,ws:true
 		}*/
 	});
-	// gulp.watch("./less/*.less", ['lessTask']);
-	gulp.watch("./src/styles/sass/**/*.scss", ['sassTask']);
-	// gulp.watch("./js/*.js", ['jsminTask']);
+	// gulp.watch("./less/*.less", ["lessTask"]);
+	gulp.watch("./src/styles/sass/**/*.scss", ["sassTask"]);
+	// gulp.watch("./js/*.js", ["jsminTask"]);
 	// node-sass require
-	// gulp.watch("./css/*.css", ['autoPrefixer']);
-	gulp.watch(["./src/**/*.html","./src/**/*.js"], {interval: 500}).on('change', browserSync.reload);
+	// gulp.watch("./css/*.css", ["autoPrefixer"]);
+	gulp.watch(["./src/**/*.html","./src/**/*.js"], {interval: 500}).on("change", browserSync.reload);
 });
 
 // gulp-ruby-sass, Used gulp-sass replace this plugins.
-/*gulp.task('sassTask', function(){
-	return sass('./src/styles/sass/!*.scss')
-    .on('error', sass.logError)
+/*gulp.task("sassTask", function(){
+	return sass("./src/styles/sass/!*.scss")
+    .on("error", sass.logError)
 		.pipe(autoprefixer({
-					browsers: ['last 2 versions','Firefox <= 20'],
+					browsers: ["last 2 versions","Firefox <= 20"],
 					cascade: false
 				}))			
-    .pipe(gulp.dest('./src/styles'))
+    .pipe(gulp.dest("./src/styles"))
     .pipe(browserSync.stream());
 });*/
 
 // gulp-sass
-gulp.task('sassTask', function () {
-	return gulp.src('./src/styles/sass/*.scss')
-		.pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
+gulp.task("sassTask", function () {
+	return gulp.src("./src/styles/sass/*.scss")
+		.pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
 		// compressed,expanded
-		.pipe(sass({outputStyle: 'expanded'}))
+		.pipe(sass({outputStyle: "expanded"}))
 		.pipe(autoprefixer({
-			browsers: ['last 2 versions', 'Firefox <= 20'],
+			browsers: ["last 2 versions", "Firefox <= 20"],
 			cascade: false
 		}))
-		.pipe(gulp.dest('./src/styles'))
+		.pipe(gulp.dest("./src/styles"))
 		.pipe(browserSync.stream());
 });
 
 // less task
-gulp.task('lessTask', function(){
-	// multiple files change to array type (['','',...])
-	return gulp.src('less/*.less')
-			.pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
+/*gulp.task("lessTask", function(){
+	// multiple files change to array type (["","",...])
+	return gulp.src("less/!*.less")
+			.pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
 			.pipe(less())
-			// .pipe(mincss({compatibility: 'ie7'}))
+			// .pipe(mincss({compatibility: "ie7"}))
 			// .pipe(mincss())
 			.pipe(autoprefixer({
-						browsers: ['last 2 versions','Firefox <= 20'],
+						browsers: ["last 2 versions","Firefox <= 20"],
 						cascade: false
 					}))			
 
-			.pipe(gulp.dest('css'))
+			.pipe(gulp.dest("css"))
 			.pipe(browserSync.stream());
-});
+});*/
 
-gulp.task('jsminTask', function(){
-	return gulp.src('./js/*.js')
+gulp.task("jsminTask", function(){
+	return gulp.src("./js/*.js")
 		.pipe(jsmin())
-		.pipe(gulp.dest('./js-min'));
+		.pipe(gulp.dest("./js-min"));
 });
 
-gulp.task('spliceHTML', function () {
+gulp.task("spliceHTML", function () {
 	// 适配src/pages中所有文件夹下的所有html，排除pages的include文件夹中html
-	gulp.src(['./src/build_page/*.html'])
+	gulp.src(["./src/build_page/*.html"])
 		.pipe(fileInclude({
-			prefix: '@@',
-			basepath: '@file',
+			prefix: "@@",
+			basepath: "@file",
 			context: {
-				name: 'Text parameter'
+				name: "Text parameter"
 			}
 		}))
-		.pipe(gulp.dest('./src'))
+		.pipe(gulp.dest("./src"));
 });
 
 // Clean dist directory
-gulp.task('clean:normal', function (cb) {
+gulp.task("clean:normal", function (cb) {
 	del([
 		// 这里我们使用一个通配模式来匹配 `dist` 文件夹中的所有东西
-		'dist/**/*'
+		"dist/**/*"
 		// 如果我们不希望删掉这个文件，所以我们取反这个匹配模式
-		//'!dist/mobile/deploy.json'
+		//"!dist/mobile/deploy.json"
 	], cb);
 });
 
 // Copy src specifild file to dist folder.
-gulp.task('copyfile', function(){
+gulp.task("copyfile", function(){
 	return gulp.src(
-		['src/*.html', 'src/styles/*.css', 'src/fonts/**/*', 'src/img/**/*', 'src/lib/**/*', 'src/js/**/*'],
-		{base: './src'}
+		["src/*.html", "src/styles/*.css", "src/fonts/**/*", "src/img/**/*", "src/lib/**/*", "src/js/**/*"],
+		{base: "./src"}
 	)
-		.pipe(gulp.dest('dist', {base: './'}))
+		.pipe(gulp.dest("dist", {base: "./"}));
 });
 
 // Start deploy
-gulp.task('dist', ['clean:normal', 'copyfile']);
-/* gulp.task('dist', ['clean:normal'], function(done) {
+gulp.task("dist", ["clean:normal", "copyfile"]);
+/* gulp.task("dist", ["clean:normal"], function(done) {
 	runSequence(
-		['copyfile'],
+		["copyfile"],
 	done)
 }); */
 
 // Only watch sass types files
-gulp.task('watchSass', function(){
-	gulp.watch("./src/styless/sass/**/*.scss", ['sassTask']);
+gulp.task("watchSass", function(){
+	gulp.watch("./src/styless/sass/**/*.scss", ["sassTask"]);
 });
 
-gulp.task('default', ['serve']);
+gulp.task("default", ["serve"]);
 
 // Only watch less types files
-// gulp.task('default', function(){
-// 	gulp.watch('less/source.less',['lessTask']);
+// gulp.task("default", function(){
+// 	gulp.watch("less/source.less",["lessTask"]);
 // });

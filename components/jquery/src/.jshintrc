@@ -7,8 +7,8 @@
 	"immed": true,
 	"noarg": true,
 	"quotmark": "double",
-	"undef": true,
-	"unused": true,
+	"undef": false,
+	"unused": false,
 
 	"sub": true,
 
