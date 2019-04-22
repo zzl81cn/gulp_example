@@ -149,9 +149,14 @@ gulp.task("cpFiles", function() {
 	])
 		.pipe(gulp.dest("dist"))
 });
-gulp.task("testBuild", function (done) {
-	runSequence(["replace"], ["cpFiles"], done)
-})
+// 4.delete tmp folder
+gulp.task("cleanTmp", function(){
+	return del(["dist/tmp"]);
+});
+// 5.end commander
+gulp.task("preBuild", function (done) {
+	runSequence(["replace"], ["cpFiles"], ["cleanTmp"], done);
+});
 
 // gulp-sass
 gulp.task("sassTask", function () {
